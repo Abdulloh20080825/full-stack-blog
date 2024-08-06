@@ -10,14 +10,10 @@ const authenticateToken = (req, res, next) => {
 		return res.status(401).json({ message: 'Access token is missing' });
 	}
 
-	// Проверка токена с использованием секретного ключа
 	jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
 		if (err) {
-			// Возвращаем статус 403 при ошибке токена (например, истекший срок действия)
 			return res.status(403).json({ message: 'Invalid or expired token' });
 		}
-
-		// Если токен верен, добавляем пользователя к запросу
 		req.user = user;
 		next();
 	});
