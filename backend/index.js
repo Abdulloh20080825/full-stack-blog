@@ -9,7 +9,14 @@ require('dotenv').config();
 const app = express();
 const PORT = 4040 || process.env.PORT;
 
-app.use(cors());
+// CORS configuration
+const corsOptions = {
+	origin: 'http://localhost:5173', // allow requests from this origin
+	methods: 'GET,POST,PUT,DELETE', // allowed methods
+	allowedHeaders: 'Content-Type,Authorization', // allowed headers
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -22,7 +29,7 @@ app.post('/login', async (req, res) => {
 	try {
 		if (!username || !password) {
 			return res.status(400).json({
-				message: 'All Field is required',
+				message: 'All fields are required',
 			});
 		}
 		const isUserExist = await User.findOne({ username });
@@ -45,13 +52,13 @@ app.post('/login', async (req, res) => {
 			expiresIn: '1d',
 		});
 		return res.status(201).json({
-			message: 'Login successfuly',
+			message: 'Login successful',
 			accessToken,
 			user,
 		});
 	} catch (error) {
 		return res.status(500).json({
-			message: 'Something went wrongs',
+			message: 'Something went wrong',
 		});
 	}
 });
@@ -61,7 +68,7 @@ app.post('/create-account', async (req, res) => {
 	try {
 		if (!name || !username || !password) {
 			return res.status(400).json({
-				message: 'All Field is required',
+				message: 'All fields are required',
 			});
 		}
 
@@ -107,11 +114,12 @@ app.get('/get-user', authenticateToken, (req, res) => {
 			});
 		}
 		return res.status(200).json({
-			message: 'User find successfuly',
+			message: 'User found successfully',
 			user,
 		});
 	} catch (error) {}
 });
+
 app.post('/create-blog', authenticateToken, async (req, res) => {
 	try {
 		const { url, title, description } = req.body;
@@ -146,12 +154,12 @@ app.get('/view-blog/:id', authenticateToken, async (req, res) => {
 			});
 		}
 		return res.status(200).json({
-			message: 'Blog find successfuly',
+			message: 'Blog found successfully',
 			blog,
 		});
 	} catch (error) {
 		return res.status(500).json({
-			message: 'Somwthing went wrong',
+			message: 'Something went wrong',
 		});
 	}
 });
@@ -172,7 +180,7 @@ app.put('/update-blog/:id', authenticateToken, async (req, res) => {
 			});
 		}
 		return res.status(200).json({
-			message: 'Update successfully',
+			message: 'Update successful',
 			updatedBlog,
 		});
 	} catch (error) {
@@ -193,7 +201,7 @@ app.delete('/delete-blog/:id', authenticateToken, async (req, res) => {
 			});
 		}
 		return res.status(200).json({
-			message: 'Blog deleted successfuly',
+			message: 'Blog deleted successfully',
 		});
 	} catch (error) {
 		return res.status(500).json({
@@ -209,7 +217,9 @@ app.get('/get-all-blogs', authenticateToken, async (req, res) => {
 			blogs,
 		});
 	} catch (error) {
-		return res.status(50);
+		return res.status(500).json({
+			message: 'Something went wrong',
+		});
 	}
 });
 
@@ -220,7 +230,7 @@ app.get('/get-my-blogs', authenticateToken, async (req, res) => {
 		const blog = await Blog.find();
 		const userBlog = blog.filter((x) => x.user.user._id == user._id);
 		return res.status(200).json({
-			message: 'Blogs find successfuly',
+			message: 'Blogs found successfully',
 			userBlog,
 		});
 	} catch (error) {
@@ -231,7 +241,7 @@ app.get('/get-my-blogs', authenticateToken, async (req, res) => {
 });
 
 app.listen(PORT, () => {
-	console.log(`Server has been started on PORT: ${PORT}`);
+	console.log(`Server has started on PORT: ${PORT}`);
 	mongoose
 		.connect(
 			'mongodb+srv://abdullohqurbonov332:OFb5Rz3gPaFv4NEM@full-stack-log.9irxg7g.mongodb.net/?retryWrites=true&w=majority&appName=Full-Stack-log'
