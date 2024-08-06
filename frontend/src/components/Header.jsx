@@ -16,7 +16,7 @@ const Header = ({ user, onLogout }) => {
 					Blo<span className='text-orange-600'>g</span>
 				</p>
 				<ul className='hidden lg:flex justify-between space-x-5 sm:space-x-10 font-bold text-[13px] sm:text-lg'>
-					{user.username && (
+					{user?.username && (
 						<>
 							<li>
 								<NavLink to='/blogs'>Blogs</NavLink>
@@ -40,7 +40,7 @@ const Header = ({ user, onLogout }) => {
 					)}
 				</ul>
 				<div className='flex items-center space-x-5'>
-					{user.username && (
+					{user?.username && (
 						<>
 							<IoMenu
 								className='block lg:hidden text-3xl cursor-pointer'
