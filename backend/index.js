@@ -7,7 +7,7 @@ const cors = require('cors');
 const { authenticateToken } = require('./middleware/isAuth');
 require('dotenv').config();
 const app = express();
-const PORT = process.env.PORT;
+const PORT = 4040 || process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
@@ -41,7 +41,7 @@ app.post('/login', async (req, res) => {
 			user: isUserExist,
 		};
 
-		const accessToken = jwt.sign(user, process.env.JWT_SECRET, {
+		const accessToken = jwt.sign(user, 'secreeet', {
 			expiresIn: '1d',
 		});
 		return res.status(201).json({
@@ -81,7 +81,7 @@ app.post('/create-account', async (req, res) => {
 		});
 		await user.save();
 
-		const accessToken = jwt.sign({ user }, process.env.JWT_SECRET, {
+		const accessToken = jwt.sign({ user }, 'secreeet', {
 			expiresIn: '1d',
 		});
 
@@ -233,7 +233,9 @@ app.get('/get-my-blogs', authenticateToken, async (req, res) => {
 app.listen(PORT, () => {
 	console.log(`Server has been started on PORT: ${PORT}`);
 	mongoose
-		.connect(process.env.MONGO_URL)
+		.connect(
+			'mongodb+srv://abdullohqurbonov332:OFb5Rz3gPaFv4NEM@full-stack-log.9irxg7g.mongodb.net/?retryWrites=true&w=majority&appName=Full-Stack-log'
+		)
 		.then(() => {
 			console.log('DB connected');
 		})
