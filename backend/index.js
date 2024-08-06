@@ -7,9 +7,16 @@ const cors = require('cors');
 const { authenticateToken } = require('./middleware/isAuth');
 require('dotenv').config();
 const app = express();
-const PORT = 4040 || process.env.PORT;
+const PORT = process.env.PORT || 4040;
 
-app.use(cors());
+// CORS configuration
+const corsOptions = {
+	origin: 'http://localhost:5173', // разрешить запросы с этого источника
+	methods: 'GET,POST,PUT,DELETE', // разрешенные методы
+	allowedHeaders: 'Content-Type,Authorization', // разрешенные заголовки
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -41,7 +48,7 @@ app.post('/login', async (req, res) => {
 			user: isUserExist,
 		};
 
-		const accessToken = jwt.sign(user, process.env.JWT_SECRET, {
+		const accessToken = jwt.sign(user, 'secreeet', {
 			expiresIn: '1d',
 		});
 		return res.status(201).json({
@@ -81,7 +88,7 @@ app.post('/create-account', async (req, res) => {
 		});
 		await user.save();
 
-		const accessToken = jwt.sign({ user }, process.env.JWT_SECRET, {
+		const accessToken = jwt.sign({ user }, 'secreeet', {
 			expiresIn: '1d',
 		});
 
