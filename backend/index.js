@@ -9,14 +9,7 @@ require('dotenv').config();
 const app = express();
 const PORT = 4040 || process.env.PORT;
 
-// CORS configuration
-const corsOptions = {
-	origin: 'http://localhost:5173', // allow requests from this origin
-	methods: 'GET,POST,PUT,DELETE', // allowed methods
-	allowedHeaders: 'Content-Type,Authorization', // allowed headers
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -48,7 +41,7 @@ app.post('/login', async (req, res) => {
 			user: isUserExist,
 		};
 
-		const accessToken = jwt.sign(user, 'secreeet', {
+		const accessToken = jwt.sign(user, process.env.JWT_SECRET, {
 			expiresIn: '1d',
 		});
 		return res.status(201).json({
@@ -88,7 +81,7 @@ app.post('/create-account', async (req, res) => {
 		});
 		await user.save();
 
-		const accessToken = jwt.sign({ user }, 'secreeet', {
+		const accessToken = jwt.sign({ user }, process.env.JWT_SECRET, {
 			expiresIn: '1d',
 		});
 
