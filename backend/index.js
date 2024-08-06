@@ -11,9 +11,12 @@ const PORT = process.env.PORT || 4040;
 
 // CORS configuration
 const corsOptions = {
-	methods: 'GET,POST,PUT,DELETE', // разрешенные методы
-	allowedHeaders: 'Content-Type,Authorization', // разрешенные заголовки
+	origin: ['http://localhost:5173', 'https://abdulloh-blog.vercel.app'], // добавьте URL вашего развернутого фронтенда
+	methods: 'GET,POST,PUT,DELETE',
+	allowedHeaders: 'Content-Type,Authorization',
 };
+
+app.use(cors(corsOptions));
 
 app.use(cors(corsOptions));
 app.use(express.json());
