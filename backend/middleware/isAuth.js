@@ -1,11 +1,9 @@
 const jwt = require('jsonwebtoken');
 
 const authenticateToken = (req, res, next) => {
-	// Извлечение заголовка Authorization
 	const authHeader = req.headers['authorization'];
 	const token = authHeader && authHeader.split(' ')[1];
 
-	// Если токен отсутствует, вернуть статус 401
 	if (!token) {
 		return res.status(401).json({ message: 'Access token is missing' });
 	}

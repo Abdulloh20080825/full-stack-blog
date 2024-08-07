@@ -30,7 +30,7 @@ const Register = () => {
 			localStorage.setItem('token', data.data.accessToken);
 			navigate('/');
 		} catch (error) {
-			if (error.response.status === 400) {
+			if (error?.response?.status === 400) {
 				setError(error.response.data.message);
 			}
 		}
