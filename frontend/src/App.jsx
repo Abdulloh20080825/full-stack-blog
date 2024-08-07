@@ -21,7 +21,9 @@ const App = () => {
 			const data = await axiosInstance.get('/get-user');
 			setUser(data?.data?.user?.user);
 		};
-		getUserInfo();
+		if (localStorage.getItem('token')) {
+			getUserInfo();
+		}
 	}, [localStorage.getItem('token')]);
 
 	const onLogout = () => {
