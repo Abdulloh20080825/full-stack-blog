@@ -240,9 +240,7 @@ app.get('/get-my-blogs', authenticateToken, async (req, res) => {
 app.listen(PORT, () => {
 	console.log(`Server has started on PORT: ${PORT}`);
 	mongoose
-		.connect(
-			'mongodb+srv://abdullohqurbonov332:OFb5Rz3gPaFv4NEM@full-stack-log.9irxg7g.mongodb.net/?retryWrites=true&w=majority&appName=Full-Stack-log'
-		)
+		.connect(process.env.MONGO_URL)
 		.then(() => {
 			console.log('DB connected');
 		})
