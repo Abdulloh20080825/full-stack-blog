@@ -31,7 +31,7 @@ const Blogs = ({ user }) => {
 			{blogs?.map((item, index) => (
 				<div
 					key={index}
-					className='h-auto pb-3 flex flex-col border shadow-lg rounded-xl overflow-hidden'
+					className='h-auto pb-3 flex flex-col border shadow-md shadow-white rounded-xl overflow-hidden'
 				>
 					<img
 						src={item.url}

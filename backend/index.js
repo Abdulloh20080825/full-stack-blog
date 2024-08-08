@@ -1,12 +1,9 @@
 const express = require('express');
 const { default: mongoose } = require('mongoose');
-const User = require('./models/User');
-const Blog = require('./models/Blog');
 const BlogRoutes = require('./routes/blog.router');
-const jwt = require('jsonwebtoken');
+const CommentRoutes = require('./routes/comment.router');
 const cors = require('cors');
 const AuthRoutes = require('./routes/auth.router');
-const { authenticateToken } = require('./middleware/isAuth');
 require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 4040;
@@ -21,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(AuthRoutes);
 app.use(BlogRoutes);
+app.use(CommentRoutes);
 
 app.listen(PORT, () => {
 	console.log(`Server has started on PORT: ${PORT}`);

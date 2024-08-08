@@ -10,7 +10,7 @@ const Header = ({ user, onLogout }) => {
 	const closeModal = () => setOpenSection(false);
 
 	return (
-		<div className='bg-gradient-to-r from-slate-900 to-slate-700 h-[15vh] text-white'>
+		<div className='bg-gradient-to-r from-black to-slate-800 h-[15vh] text-white'>
 			<nav className='flex justify-between items-center px-5 h-full'>
 				<p className='text-2xl sm:text-4xl font-medium tracking-widest'>
 					Blo<span className='text-orange-600'>g</span>
