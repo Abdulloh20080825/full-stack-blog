@@ -10,7 +10,7 @@ const About = () => {
 		}
 	}, []);
 	return (
-		<div className='flex flex-col py-5 text-white'>
+		<div className='flex flex-col py-5 text-white px-5 py-2'>
 			<p className='text-3xl text-center mb-10'>About Us</p>
 			<div className='flex flex-col space-y-5'>
 				<p className='capitalize text-4xl font-semibold'>
@@ -37,6 +37,25 @@ const About = () => {
 						Github
 					</a>
 				</p>
+				<p className='capitalize text-4xl font-semibold'>Updates</p>
+				<ul className='flex flex-col space-y-3'>
+					<li>
+						1.0.0 -{' '}
+						<span className='text-orange-600 font-bold'>
+							End Frontend & Backend
+						</span>
+					</li>
+					<li>
+						1.0.1 -{' '}
+						<span className='text-orange-600 font-bold'>
+							Add comments panel
+						</span>
+					</li>
+					<li>
+						1.0.2 -{' '}
+						<span className='text-orange-600 font-bold'>Comming soon</span>
+					</li>
+				</ul>
 			</div>
 		</div>
 	);
