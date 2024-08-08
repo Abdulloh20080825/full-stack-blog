@@ -29,6 +29,20 @@ class CommentController {
 			});
 		}
 	}
+	async delete(req, res) {
+		const { blog, id } = req.params;
+		try {
+			const deletedBlog = await commentService.delete(id);
+			return res.status(200).json({
+				message: 'Successfuly deleted',
+				deletedBlog,
+			});
+		} catch (error) {
+			return res.status(500).json({
+				message: 'Error deleting comment',
+			});
+		}
+	}
 }
 
 module.exports = new CommentController();

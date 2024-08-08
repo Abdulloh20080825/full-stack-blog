@@ -2,8 +2,9 @@ import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axiosInstance from '../service/api';
+import { MdDelete } from 'react-icons/md';
 
-const Blog = () => {
+const Blog = ({ user }) => {
 	const [selectedBlog, setSelectedBlog] = useState({});
 	const [blogComment, setBlogComments] = useState([]);
 	const [comment, setComment] = useState('');
@@ -33,23 +34,30 @@ const Blog = () => {
 				console.log(error);
 			}
 		};
+
 		onViewBlog();
 		getComments();
 	}, []);
 
 	const PostComment = async () => {
 		try {
-			const res = await axiosInstance.post(`/comment/${blog}`, {
+			await axiosInstance.post(`/comment/${blog}`, {
 				comment,
 			});
 			window.location.reload();
-
-			console.log(res);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
+	const onDeleteComment = async (id) => {
+		try {
+			await axiosInstance.delete(`/delete-comment/${blog}/${id}`);
+			window.location.reload();
+		} catch (error) {
+			console.log(error);
+		}
+	};
 	const onPostComment = async (e) => {
 		e.preventDefault();
 		if (!comment.length) setError('Write cooment !!!');
@@ -81,7 +89,7 @@ const Blog = () => {
 						</span>
 					</p>
 				</div>
-				<p className='text-sm sm:text-2xl mt-5 capitalize border-b-2 shadow-md shadow-slate-600'>
+				<p className='text-sm sm:text-2xl mt-5 capitalize border-b-2 shadow-md pb-2 px-3 shadow-slate-600'>
 					{selectedBlog.description}
 				</p>
 				<form
@@ -89,10 +97,13 @@ const Blog = () => {
 					onSubmit={onPostComment}
 				>
 					<p className='text-red-600 mb-5'>{error && error}</p>
-					<label htmlFor='comment' className='text-2xl'>
+					<label
+						htmlFor='comment'
+						className='text-lg sm:text-2xl text-center w-full'
+					>
 						Write your comment
 					</label>
-					<div className='flex space-x-4 items-center'>
+					<div className='flex flex-col sm:flex-row space-x-4 items-center'>
 						<input
 							type='text'
 							id='comment'
@@ -104,34 +115,42 @@ const Blog = () => {
 						/>
 						<button
 							type='submit'
-							className='border-2 px-2 sm:px-4 sm:py-2 rounded-md'
+							className='border-2 px-2 sm:px-4 sm:py-2 rounded-md mt-4 sm:mt-0'
 						>
 							Post
 						</button>
 					</div>
 				</form>
 
-				<p className='text-xl font-medium '>All comments</p>
+				<p className='text-xl font-medium'>All comments</p>
 				{blogComment.length ? (
 					blogComment?.map((item, index) => (
 						<div
 							key={index}
 							className='shadow-inner rounded-sm py-2 px-4 shadow-slate-700 my-5 border-b border-slate-700'
 						>
-							{console.log(item)}
-							<div className='flex space-x-2'>
-								<p className='tracking-wide font-semibold'>
-									Author:{' '}
-									<span className='text-orange-600'>
-										{item?.user?.username}
-									</span>
-								</p>
-								<p className='text-slate-500'>
-									{moment(item?.createdAt).format('MMM DD YYYY')}
-								</p>
+							<div className='flex  justify-between items-center space-x-2'>
+								<div>
+									<p className='tracking-wide font-semibold'>
+										Author:{' '}
+										<span className='text-orange-600'>
+											{item?.user?.username}
+										</span>
+									</p>
+									<p className='text-slate-500'>
+										{moment(item?.createdAt).format('MMM DD YYYY')}
+									</p>
+								</div>
 							</div>
-
-							<p>{item.comment}</p>
+							<p className='text-[10px] sm:text-sm'>{item.comment}</p>
+							{user?.username === item?.user?.username ? (
+								<MdDelete
+									className='cursor-pointer text-red-600 text-lg mt-3'
+									onClick={() => onDeleteComment(item._id)}
+								>
+									Delete
+								</MdDelete>
+							) : null}
 						</div>
 					))
 				) : (

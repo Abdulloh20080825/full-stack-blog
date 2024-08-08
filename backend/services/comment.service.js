@@ -28,6 +28,13 @@ class CommentService {
 			throw new Error('Error fetching comments');
 		}
 	}
+	async delete(id) {
+		try {
+			return await Comment.findByIdAndDelete(id);
+		} catch (error) {
+			throw new Error('Error fetching comments');
+		}
+	}
 }
 
 module.exports = new CommentService();
