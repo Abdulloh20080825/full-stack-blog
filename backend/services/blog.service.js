@@ -9,6 +9,7 @@ class BlogService {
 				description,
 				user,
 			});
+			console.log(blog);
 			await blog.save();
 			return blog;
 		} catch (error) {
@@ -66,7 +67,15 @@ class BlogService {
 	async getMy(userId) {
 		try {
 			const blogs = await Blog.find();
-			const userBlog = blogs.filter((x) => x.user.user._id == userId);
+
+			const userBlog = blogs.filter((blog) => {
+				if (blog.user?.user) {
+					return blog.user.user === userId;
+				}
+				return blog.user._id === userId;
+			});
+			console.log(userBlog);
+
 			return userBlog;
 		} catch (error) {
 			throw new Error('Something went wrong with the service');

@@ -82,11 +82,12 @@ class BlogController {
 	}
 
 	async getMy(req, res) {
+		const user = req.user;
 		try {
-			const userId = req.user.user._id;
-			console.log(userId);
-			const blogs = await blogService.getMy(userId);
-			return res.status(200).json(blogs);
+			const blogs = await blogService.getMy(user._id);
+			return res.status(200).json({
+				blogs,
+			});
 		} catch (error) {
 			console.error(error);
 			return res.status(500).json({

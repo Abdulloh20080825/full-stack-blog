@@ -1,4 +1,4 @@
-const User = require('../models/User'); 
+const User = require('../models/User');
 
 class AuthService {
 	async login(username) {
@@ -26,6 +26,11 @@ class AuthService {
 		} catch (error) {
 			return { error: 'Something went wrong with the service' };
 		}
+	}
+
+	async findUser(id) {
+		const user = await User.findById(id);
+		return user;
 	}
 }
 
