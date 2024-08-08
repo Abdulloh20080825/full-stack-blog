@@ -14,9 +14,10 @@ const EditBlog = () => {
 		const getBlogInfo = async () => {
 			try {
 				const response = await axiosInstance.get(`view-blog/${id}`);
-				setUrl(response?.data?.blog?.url);
-				setTitle(response?.data?.blog?.title);
-				setDescription(response?.data?.blog?.description);
+				
+				setUrl(response.data.url);
+				setTitle(response.data.title);
+				setDescription(response.data.description);
 			} catch (error) {
 				console.error(error);
 				setError('Failed to fetch blog information.');

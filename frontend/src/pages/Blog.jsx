@@ -15,7 +15,7 @@ const Blog = () => {
 		const onViewBlog = async () => {
 			try {
 				const response = await axiosInstance.get(`/view-blog/${id}`);
-				setSelectedBlog(response.data.blog);
+				setSelectedBlog(response.data);
 				navigate(`/blog/${id}`);
 			} catch (error) {
 				console.log(error);

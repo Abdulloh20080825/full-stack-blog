@@ -8,12 +8,12 @@ const Blogs = ({ user }) => {
 
 	const getAllBlogs = async () => {
 		const data = await axiosInstance.get('/get-all-blogs');
-		setBlogs(data.data.blogs.reverse());
+		setBlogs(data?.data.reverse());
 	};
 	const onDeleteBlog = async (id) => {
 		try {
 			await axiosInstance.delete(`/delete-blog/${id}`);
-			navigate('/blogs');
+			navigate('/');
 		} catch (error) {
 			console.log(error);
 		}
@@ -26,7 +26,6 @@ const Blogs = ({ user }) => {
 		}
 		getAllBlogs();
 	}, []);
-
 	return (
 		<div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 w-[80%] mx-auto gap-5 py-5 text-white'>
 			{blogs?.map((item, index) => (
@@ -36,8 +35,8 @@ const Blogs = ({ user }) => {
 				>
 					<img
 						src={item.url}
-						alt=''
-						className='bg-white w-full h-[50%] object-cover'
+						alt='Image not found'
+						className='bg-white w-full h-[50%] object-cover text-black '
 					/>
 					<div className='flex flex-col justify-between space-y-3 px-3'>
 						<p className='text-center font-medium text-xl mt-2'>
@@ -47,7 +46,9 @@ const Blogs = ({ user }) => {
 							<p>
 								Author:{' '}
 								<span className='text-orange-600 font-medium'>
-									{item.user.user.username}
+									{item?.user?.user?.username
+										? item?.user?.user?.username
+										: item?.user?.username}
 								</span>
 							</p>
 							<p className='capitalize'>
@@ -60,23 +61,46 @@ const Blogs = ({ user }) => {
 							<Link to={`/blog/${item._id}`}>
 								<button className='border rounded-md py-1 px-3'>View</button>
 							</Link>
-
-							{user.username === item.user.user.username ? (
+							{item?.user?.user ? (
 								<>
-									<Link to={`/edit/${item._id}`}>
-										<button className='border rounded-md py-1 px-3 text-sky-300'>
-											Edit
-										</button>
-									</Link>
-									<button
-										className='border rounded-md py-1 px-3 text-red-600'
-										onClick={() => onDeleteBlog(item._id)}
-									>
-										Delete
-									</button>
+									{user?.username === item?.user?.user?.username ? (
+										<>
+											<Link to={`/edit/${item._id}`}>
+												<button className='border rounded-md py-1 px-3 text-sky-300'>
+													Edit
+												</button>
+											</Link>
+											<button
+												className='border rounded-md py-1 px-3 text-red-600'
+												onClick={() => onDeleteBlog(item._id)}
+											>
+												Delete
+											</button>
+										</>
+									) : (
+										''
+									)}
 								</>
 							) : (
-								''
+								<>
+									{user?.username === item?.user?.username ? (
+										<>
+											<Link to={`/edit/${item._id}`}>
+												<button className='border rounded-md py-1 px-3 text-sky-300'>
+													Edit
+												</button>
+											</Link>
+											<button
+												className='border rounded-md py-1 px-3 text-red-600'
+												onClick={() => onDeleteBlog(item._id)}
+											>
+												Delete
+											</button>
+										</>
+									) : (
+										''
+									)}
+								</>
 							)}
 						</div>
 					</div>

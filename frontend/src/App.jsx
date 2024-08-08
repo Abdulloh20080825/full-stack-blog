@@ -19,7 +19,7 @@ const App = () => {
 	useEffect(() => {
 		const getUserInfo = async () => {
 			const data = await axiosInstance.get('/get-user');
-			setUser(data?.data?.user?.user);
+			setUser(data?.data?.user);
 		};
 		if (localStorage.getItem('token')) {
 			getUserInfo();
