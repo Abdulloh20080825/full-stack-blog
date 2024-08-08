@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../service/api';
 
@@ -7,6 +7,12 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState(null);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (localStorage.getItem('token')) {
+			navigate('/blogs');
+		}
+	}, []);
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
