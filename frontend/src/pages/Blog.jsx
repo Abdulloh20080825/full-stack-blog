@@ -39,7 +39,7 @@ const Blog = () => {
 					<p className='text-sm sm:text-xl'>
 						Author:{' '}
 						<span className='text-orange-600'>
-							{selectedBlog?.user?.user?.name}
+							{selectedBlog?.user?.username}
 						</span>
 					</p>
 					<p className='text-sm sm:text-xl'>
