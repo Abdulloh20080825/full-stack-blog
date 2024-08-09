@@ -7,7 +7,7 @@ const blogSchema = new Schema(
 		title: { type: String, required: true },
 		url: { type: String, required: true },
 		description: { type: String, required: true },
-		user: { type: mongoose.Types.ObjectId },
+		user: { type: Object },
 	},
 	{ timestamps: true }
 );

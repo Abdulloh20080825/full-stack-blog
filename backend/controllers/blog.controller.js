@@ -5,6 +5,7 @@ class BlogController {
 		try {
 			const { url, title, description } = req.body;
 			const user = req.user;
+			console.log(user);
 			if (!url || !title || !description) {
 				return res.status(400).json({
 					message: 'All fields are required',
@@ -83,8 +84,9 @@ class BlogController {
 
 	async getMy(req, res) {
 		const user = req.user;
+		console.log(user)
 		try {
-			const blogs = await blogService.getMy(user._id);
+			const blogs = await blogService.getMy(user.id);
 			return res.status(200).json({
 				blogs,
 			});

@@ -1,18 +1,15 @@
 const Blog = require('../models/Blog');
+const Comment = require('../models/Comment');
 
 class BlogService {
 	async create({ url, title, description, user }) {
 		try {
-			const blog = new Blog({
-				url,
-				title,
-				description,
-				user,
-			});
-			console.log(blog);
+			console.log(user);
+			const blog = new Blog({ url, title, description, user });
 			await blog.save();
 			return blog;
 		} catch (error) {
+			console.error('Error saving blog:', error);
 			throw new Error('Something went wrong with the service');
 		}
 	}
@@ -46,6 +43,13 @@ class BlogService {
 	async delete(blogId) {
 		try {
 			const blog = await Blog.findByIdAndDelete(blogId);
+			const comments = await Comment.find();
+			for (let i = 0; i < comments.length; i++) {
+				if (comments[i].blog == blogId) {
+					await Comment.findByIdAndDelete(comments[i]._id);
+				}
+			}
+
 			if (!blog) {
 				throw new Error('Blog not found');
 			}
@@ -65,16 +69,17 @@ class BlogService {
 	}
 
 	async getMy(userId) {
+		console.log(userId);
 		try {
 			const blogs = await Blog.find();
 
+			console.log(blogs);
 			const userBlog = blogs.filter((blog) => {
 				if (blog.user?.user) {
-					return blog.user.user === userId;
+					return blog.user.id == userId;
 				}
-				return blog.user._id === userId;
+				return blog.user.id === userId;
 			});
-			console.log(userBlog);
 
 			return userBlog;
 		} catch (error) {

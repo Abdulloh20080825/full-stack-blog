@@ -9,7 +9,7 @@ class AuthService {
 			throw new Error('Error finding user');
 		}
 	}
-
+zz
 	async register({ name, username, password }) {
 		try {
 			const isUser = await User.findOne({ username });

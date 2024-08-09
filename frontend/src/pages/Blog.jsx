@@ -65,31 +65,31 @@ const Blog = ({ user }) => {
 	};
 
 	return (
-		<div className='text-white flex flex-col items-center w-[70%] mx-auto'>
+		<div className='text-white flex flex-col items-center w-[70%] mx-auto shadow-inner shadow-slate-600 py-5 px-10 '>
 			<img
 				src={selectedBlog.url}
 				alt=''
-				className='w-full h-[300px] object-cover'
+				className='w-full h-[300px] object-cover rounded-2xl mt-2'
 			/>
 			<div className='w-full'>
-				<p className='text-2xl sm:text-5xl mt-10 tracking-widest text-center mb-5'>
+				<p className='text-2xl sm:text-5xl mt-10 tracking-widest text-center mb-5 font-extrabold bg-gradient-to-r from-slate-400 via-slate-500 to-slate-600 bg-clip-text text-transparent inline-block '>
 					{selectedBlog.title}
 				</p>
 				<div className='flex flex-col sm:flex-row justify-between'>
-					<p className='text-sm sm:text-xl'>
+					<p className='text-sm sm:text-xl text-slate-400'>
 						Author:{' '}
 						<span className='text-orange-600'>
 							{selectedBlog?.user?.username}
 						</span>
 					</p>
-					<p className='text-sm sm:text-xl'>
+					<p className='text-sm sm:text-xl text-slate-600'>
 						Created at:{' '}
 						<span className='text-orange-600 font-semibold'>
 							{moment(selectedBlog?.createdAt).format('MMM DD YYYY')}
 						</span>
 					</p>
 				</div>
-				<p className='text-sm sm:text-2xl mt-5 capitalize border-b-2 shadow-md pb-2 px-3 shadow-slate-600'>
+				<p className='text-sm sm:text-2xl mt-5 capitalize shadow-md pb-2 px-3 shadow-slate-600 bg-gradient-to-r from-slate-200 via-slate-400 to-slate-600 bg-clip-text text-transparent '>
 					{selectedBlog.description}
 				</p>
 				<form

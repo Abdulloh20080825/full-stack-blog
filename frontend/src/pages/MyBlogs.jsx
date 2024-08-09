@@ -25,6 +25,7 @@ const MyBlogs = () => {
 			console.log(error);
 		}
 	};
+	console.log(blogs);
 	return (
 		<>
 			{blogs.length ? (
