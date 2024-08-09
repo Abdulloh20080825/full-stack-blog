@@ -30,7 +30,6 @@ const Header = ({ user, onLogout }) => {
 							<li>
 								<NavLink to='/add'>Add</NavLink>
 							</li>
-
 							<li>
 								<p className='cursor-pointer' onClick={onLogout}>
 									Logout

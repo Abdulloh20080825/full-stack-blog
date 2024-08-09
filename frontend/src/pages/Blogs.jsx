@@ -27,13 +27,14 @@ const Blogs = ({ user }) => {
 		getAllBlogs();
 	}, []);
 	return (
-		<div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 w-[80%] mx-auto gap-5 py-5 text-white'>
+		<div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 w-[80%] mx-auto gap-5 py-5 text-slate-300'>
 			{blogs.length ? (
 				blogs?.map((item, index) => (
 					<div
 						key={index}
-						className='h-auto pb-3 flex flex-col border shadow-md shadow-white rounded-xl overflow-hidden'
+						className='h-auto pb-3 flex flex-col border shadow-lg shadow-slate-700 rounded-xl overflow-hidden'
 					>
+						{console.log(item)}
 						<img
 							src={item.url}
 							alt='Image not found'

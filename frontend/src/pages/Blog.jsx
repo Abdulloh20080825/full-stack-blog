@@ -60,12 +60,15 @@ const Blog = ({ user }) => {
 	};
 	const onPostComment = async (e) => {
 		e.preventDefault();
-		if (!comment.length) setError('Write cooment !!!');
+		if (!comment.length) {
+			setError('Write cooment !!!');
+			return;
+		}
 		PostComment();
 	};
 
 	return (
-		<div className='text-white flex flex-col items-center w-[70%] mx-auto shadow-inner shadow-slate-600 py-5 px-10 '>
+		<div className='text-white flex flex-col items-center w-[70%] mx-auto shadow-inner shadow-slate-600 py-5 px-10 rounded-lg '>
 			<img
 				src={selectedBlog.url}
 				alt=''
@@ -96,10 +99,10 @@ const Blog = ({ user }) => {
 					className='mt-10 mb-10 w-full px-10 space-y-5'
 					onSubmit={onPostComment}
 				>
-					<p className='text-red-600 mb-5'>{error && error}</p>
+					<p className='text-red-600 mb-5 font-semibold tracking-widest'>{error && error}</p>
 					<label
 						htmlFor='comment'
-						className='text-lg sm:text-2xl text-center w-full'
+						className='text-lg sm:text-2xl text-center w-full text-slate-600'
 					>
 						Write your comment
 					</label>
@@ -111,41 +114,41 @@ const Blog = ({ user }) => {
 							name='comment'
 							value={comment}
 							onChange={(e) => setComment(e.target.value)}
-							className='w-full py-2 px-3 text-white text-lg  outline-none bg-transparent border-b-2 border-white'
+							className='w-full py-2 px-3 bg-gradient-to-r from-slate-200 via-slate-400 to-slate-600 bg-clip-text text-transparent text-lg  outline-none bg-transparent border-b-2 border-slate-500'
 						/>
 						<button
 							type='submit'
-							className='border-2 px-2 sm:px-4 sm:py-2 rounded-md mt-4 sm:mt-0'
+							className='border-2 px-2 sm:px-4 sm:py-2 rounded-md mt-4 sm:mt-0 border-slate-600 shadow-inner shadow-slate-700'
 						>
 							Post
 						</button>
 					</div>
 				</form>
 
-				<p className='text-xl font-medium'>All comments</p>
+				<p className='text-xl font-medium tracking-wide'>All comments</p>
 				{blogComment.length ? (
 					blogComment?.map((item, index) => (
 						<div
 							key={index}
 							className='shadow-inner rounded-sm py-2 px-4 shadow-slate-700 my-5 border-b border-slate-700'
 						>
-							<div className='flex  justify-between items-center space-x-2'>
+							<div className='flex justify-between items-center space-x-2'>
 								<div>
 									<p className='tracking-wide font-semibold'>
 										Author:{' '}
-										<span className='text-orange-600'>
+										<span className='text-orange-600 font-bold'>
 											{item?.user?.username}
 										</span>
 									</p>
-									<p className='text-slate-500'>
+									<p className='text-slate-500 text-[10px]'>
 										{moment(item?.createdAt).format('MMM DD YYYY')}
 									</p>
 								</div>
 							</div>
-							<p className='text-[10px] sm:text-sm'>{item.comment}</p>
+							<p className='text-[10px] sm:text-sm tracking-widest font-thin mt-2'>{item.comment}</p>
 							{user?.username === item?.user?.username ? (
 								<MdDelete
-									className='cursor-pointer text-red-600 text-lg mt-3'
+									className='cursor-pointer text-red-600 text-xl mt-3'
 									onClick={() => onDeleteComment(item._id)}
 								>
 									Delete
