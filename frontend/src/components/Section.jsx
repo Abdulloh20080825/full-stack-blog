@@ -3,12 +3,12 @@ import { NavLink } from 'react-router-dom';
 
 const Section = ({ user, onLogout, closeModal }) => {
 	return (
-		<ul className='flex flex-col w-full space-y-4 p-4 bg-gray-800 text-white rounded-lg shadow-lg'>
+		<ul className='flex flex-col w-full space-y-4 p-4 bg-gray-900  text-white rounded-lg shadow-lg shadow-slate-900'>
 			<li onClick={() => closeModal()}>
 				<NavLink
 					to='/blogs'
 					className={({ isActive }) =>
-						`block px-4 py-2 rounded transition-colors duration-200 ${
+						`block px-4 py-2 rounded transition-colors duration-200 text-slate-300 ${
 							isActive ? 'bg-gray-700' : 'hover:bg-gray-700'
 						}`
 					}
@@ -20,7 +20,7 @@ const Section = ({ user, onLogout, closeModal }) => {
 				<NavLink
 					to='/my-blogs'
 					className={({ isActive }) =>
-						`block px-4 py-2 rounded transition-colors duration-200 ${
+						`block px-4 py-2 rounded transition-colors duration-200 text-slate-300 ${
 							isActive ? 'bg-gray-700' : 'hover:bg-gray-700'
 						}`
 					}
@@ -32,7 +32,7 @@ const Section = ({ user, onLogout, closeModal }) => {
 				<NavLink
 					to='/about'
 					className={({ isActive }) =>
-						`block px-4 py-2 rounded transition-colors duration-200 ${
+						`block px-4 py-2 rounded transition-colors duration-200 text-slate-300 ${
 							isActive ? 'bg-gray-700' : 'hover:bg-gray-700'
 						}`
 					}
@@ -44,7 +44,7 @@ const Section = ({ user, onLogout, closeModal }) => {
 				<NavLink
 					to='/add'
 					className={({ isActive }) =>
-						`block px-4 py-2 rounded transition-colors duration-200 ${
+						`block px-4 py-2 rounded transition-colors duration-200 text-slate-300 ${
 							isActive ? 'bg-gray-700' : 'hover:bg-gray-700'
 						}`
 					}
@@ -55,7 +55,7 @@ const Section = ({ user, onLogout, closeModal }) => {
 			{user.username && (
 				<li onClick={() => closeModal()}>
 					<p
-						className='block px-4 py-2 rounded cursor-pointer hover:bg-gray-700 transition-colors duration-200'
+						className='block px-4 py-2 rounded cursor-pointer hover:bg-gray-700 transition-colors duration-200 text-slate-300'
 						onClick={() => onLogout()}
 					>
 						Logout

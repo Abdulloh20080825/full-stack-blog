@@ -27,7 +27,7 @@ const Blogs = ({ user }) => {
 		getAllBlogs();
 	}, []);
 	return (
-		<div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 w-[80%] mx-auto gap-5 py-5 text-slate-300'>
+		<div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 w-full sm:w-[80%] mx-auto gap-5 py-5 text-slate-300 px-2'>
 			{blogs.length ? (
 				blogs?.map((item, index) => (
 					<div
@@ -42,7 +42,9 @@ const Blogs = ({ user }) => {
 						/>
 						<div className='flex flex-col justify-between space-y-3 px-3'>
 							<p className='text-center font-medium text-xl mt-2'>
-								{item?.title}
+								{item?.title.length > 15
+									? `${item?.title.slice(0, 15)} ...`
+									: item.title}
 							</p>
 							<div className='space-y-2 py-2 px-3'>
 								{console.log(item)}
