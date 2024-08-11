@@ -5,3 +5,7 @@
 .active {
 	border-bottom: 2px solid;
 }
+
+::-webkit-scrollbar {
+	height: 0;
+}

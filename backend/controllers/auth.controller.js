@@ -74,20 +74,39 @@ class AuthController {
 	async getUser(req, res) {
 		try {
 			const user = req.user;
-			const findUser = authService.findUser(user._id);
-			if (!user) {
+			console.log(user);
+			const findUser = await authService.findUser(user._id);
+			console.log(findUser);
+			if (!findUser) {
 				return res.status(400).json({
 					message: 'User not found',
 				});
 			}
 			return res.status(200).json({
 				message: 'User found successfully',
-				user,
+				findUser,
 			});
 		} catch (error) {
-			return res.status(400).json({
+			return res.status(500).json({
 				message: 'Something went wrong',
 			});
+		}
+	}
+
+	async changePassword(req, res) {
+		try {
+			const user = req.user;
+			const { newpassword } = req.body;
+			const changed = await authService.changePassword(newpassword, user.id);
+			if (!changed) {
+				return res.status(400).json({ message: 'Error, please try again' });
+			}
+			return res
+				.status(200)
+				.json({ message: 'Password changed successfully', changed });
+		} catch (error) {
+			console.error('Controller error:', error);
+			return res.status(500).json({ message: 'Something went wrong' });
 		}
 	}
 }

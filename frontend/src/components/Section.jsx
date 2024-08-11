@@ -28,18 +28,7 @@ const Section = ({ user, onLogout, closeModal }) => {
 					My Blogs
 				</NavLink>
 			</li>
-			<li onClick={() => closeModal()}>
-				<NavLink
-					to='/about'
-					className={({ isActive }) =>
-						`block px-4 py-2 rounded transition-colors duration-200 text-slate-300 ${
-							isActive ? 'bg-gray-700' : 'hover:bg-gray-700'
-						}`
-					}
-				>
-					About
-				</NavLink>
-			</li>
+
 			<li onClick={() => closeModal()}>
 				<NavLink
 					to='/add'
@@ -50,6 +39,18 @@ const Section = ({ user, onLogout, closeModal }) => {
 					}
 				>
 					Add
+				</NavLink>
+			</li>
+			<li onClick={() => closeModal()}>
+				<NavLink
+					to='/settings'
+					className={({ isActive }) =>
+						`block px-4 py-2 rounded transition-colors duration-200 text-slate-300 ${
+							isActive ? 'bg-gray-700' : 'hover:bg-gray-700'
+						}`
+					}
+				>
+					Settings
 				</NavLink>
 			</li>
 			{user.username && (

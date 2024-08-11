@@ -25,10 +25,10 @@ const Header = ({ user, onLogout }) => {
 								<NavLink to='/my-blogs'>My Blogs</NavLink>
 							</li>
 							<li>
-								<NavLink to='/about'>About</NavLink>
+								<NavLink to='/add'>Add</NavLink>
 							</li>
 							<li>
-								<NavLink to='/add'>Add</NavLink>
+								<NavLink to='/settings'>Settings</NavLink>
 							</li>
 							<li>
 								<p className='cursor-pointer' onClick={onLogout}>

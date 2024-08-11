@@ -11,7 +11,6 @@ const Main = () => {
 		}
 		navigate('/blogs');
 	}, []);
-	return;
 };
 
 export default Main;

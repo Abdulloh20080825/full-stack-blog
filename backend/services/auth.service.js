@@ -9,7 +9,7 @@ class AuthService {
 			throw new Error('Error finding user');
 		}
 	}
-zz
+	zz;
 	async register({ name, username, password }) {
 		try {
 			const isUser = await User.findOne({ username });
@@ -29,9 +29,31 @@ zz
 	}
 
 	async findUser(id) {
-		const user = await User.findById(id);
-		return user;
+		try {
+			return await User.findOne({ _id: id });
+		} catch (error) {
+			return res.status(500).json({
+				message: 'something went wrong with serice',
+			});
+		}
+	}
+
+	async changePassword(password, id) {
+		try {
+			const changeuserPass = await User.findByIdAndUpdate(
+				id,
+				{ password: password },
+				{ new: true }
+			);
+			if (!changeuserPass) {
+				throw new Error('User not found');
+			}
+			return changeuserPass;
+		} catch (error) {
+			console.error('Service error:', error);
+			throw new Error('Something went wrong with the service');
+		}
 	}
 }
-
+1;
 module.exports = new AuthService();

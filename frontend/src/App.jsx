@@ -2,7 +2,6 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import Main from './pages/Main';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import About from './pages/About';
 import Add from './pages/Add';
 import Blogs from './pages/Blogs';
 import { useEffect, useState } from 'react';
@@ -11,6 +10,10 @@ import MyBlogs from './pages/MyBlogs';
 import Blog from './pages/Blog';
 import Header from './components/Header';
 import EditBlog from './pages/EditBlog';
+import Settings from './pages/Settings';
+import User from './components/User';
+import Device from './components/Device';
+import ChangePass from './components/ChangePass';
 
 const App = () => {
 	const [user, setUser] = useState({});
@@ -19,7 +22,8 @@ const App = () => {
 	useEffect(() => {
 		const getUserInfo = async () => {
 			const data = await axiosInstance.get('/get-user');
-			setUser(data?.data?.user);
+			console.log(data);
+			setUser(data?.data?.findUser);
 		};
 		if (localStorage.getItem('token')) {
 			getUserInfo();
@@ -39,8 +43,12 @@ const App = () => {
 				<Route path='/' element={<Main user={user} />}></Route>
 				<Route path='/blogs' element={<Blogs user={user} />} />
 				<Route path='/my-blogs' element={<MyBlogs />} />
-				<Route path='/about' element={<About />} />
 				<Route path='/add' element={<Add />} />
+				<Route path='/settings' element={<Settings />}>
+					<Route path='user' element={<User user={user} />} />
+					<Route path='device' element={<Device />} />
+					<Route path='change' element={<ChangePass user={user} />} />
+				</Route>
 				<Route path='/blog/:blog' element={<Blog user={user} />} />
 				<Route path='/edit/:id' element={<EditBlog />} />
 				<Route path='/login' element={<Login />} />
