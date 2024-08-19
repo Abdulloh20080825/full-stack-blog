@@ -3,6 +3,7 @@ const { default: mongoose } = require('mongoose');
 const BlogRoutes = require('./routes/blog.router');
 const CommentRoutes = require('./routes/comment.router');
 const DeviceRoutes = require('./routes/device.info.router');
+const AdminRoutes = require('./routes/admin.routes');
 const cors = require('cors');
 const AuthRoutes = require('./routes/auth.router');
 require('dotenv').config();
@@ -21,6 +22,7 @@ app.use(AuthRoutes);
 app.use(BlogRoutes);
 app.use(CommentRoutes);
 app.use(DeviceRoutes);
+app.use('/admin', AdminRoutes);
 
 app.listen(PORT, () => {
 	console.log(`Server has started on PORT: ${PORT}`);

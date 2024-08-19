@@ -54,6 +54,16 @@ class AuthService {
 			throw new Error('Something went wrong with the service');
 		}
 	}
+
+	async deleteAccount(id) {
+		try {
+			const deletedUser = await User.findByIdAndDelete(id);
+			return deletedUser;
+		} catch (error) {
+			console.error('Service error:', error);
+			throw new Error('Something went wrong with the service');
+		}
+	}
 }
 1;
 module.exports = new AuthService();

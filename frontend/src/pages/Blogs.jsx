@@ -34,7 +34,6 @@ const Blogs = ({ user }) => {
 						key={index}
 						className='h-auto pb-3 flex flex-col border shadow-lg shadow-slate-700 rounded-xl overflow-hidden'
 					>
-						{console.log(item)}
 						<img
 							src={item.url}
 							alt='Image not found'
@@ -47,7 +46,6 @@ const Blogs = ({ user }) => {
 									: item.title}
 							</p>
 							<div className='space-y-2 py-2 px-3'>
-								{console.log(item)}
 								<p>
 									Author:{' '}
 									<span className='text-orange-600 font-medium'>

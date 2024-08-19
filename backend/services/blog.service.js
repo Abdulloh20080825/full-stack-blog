@@ -4,7 +4,6 @@ const Comment = require('../models/Comment');
 class BlogService {
 	async create({ url, title, description, user }) {
 		try {
-			console.log(user);
 			const blog = new Blog({ url, title, description, user });
 			await blog.save();
 			return blog;
@@ -69,11 +68,9 @@ class BlogService {
 	}
 
 	async getMy(userId) {
-		console.log(userId);
 		try {
 			const blogs = await Blog.find();
 
-			console.log(blogs);
 			const userBlog = blogs.filter((blog) => {
 				if (blog.user?.user) {
 					return blog.user.id == userId;

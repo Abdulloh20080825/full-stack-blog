@@ -21,6 +21,7 @@ const Login = () => {
 				username,
 				password,
 			});
+			console.log(data);
 			localStorage.setItem('token', data.data.accessToken);
 			navigate('/');
 			setUsername('');

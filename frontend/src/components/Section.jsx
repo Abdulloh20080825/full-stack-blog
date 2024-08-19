@@ -53,7 +53,7 @@ const Section = ({ user, onLogout, closeModal }) => {
 					Settings
 				</NavLink>
 			</li>
-			{user.username && (
+			{user.findUser?.username && (
 				<li onClick={() => closeModal()}>
 					<p
 						className='block px-4 py-2 rounded cursor-pointer hover:bg-gray-700 transition-colors duration-200 text-slate-300'

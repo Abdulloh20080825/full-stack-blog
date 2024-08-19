@@ -13,7 +13,6 @@ const MyBlogs = () => {
 		const getUserBlogs = async () => {
 			const blogs = await axiosInstance.get('/get-my-blogs');
 			setBlogs(blogs?.data?.blogs);
-			console.log(blogs);
 		};
 		getUserBlogs();
 	}, []);
@@ -25,7 +24,6 @@ const MyBlogs = () => {
 			console.log(error);
 		}
 	};
-	console.log(blogs);
 	return (
 		<>
 			{blogs.length ? (

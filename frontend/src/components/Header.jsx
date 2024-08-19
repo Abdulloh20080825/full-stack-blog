@@ -8,15 +8,16 @@ const Header = ({ user, onLogout }) => {
 	const [openSection, setOpenSection] = useState(false);
 	const handleOpenSection = () => setOpenSection(!openSection);
 	const closeModal = () => setOpenSection(false);
+	console.log('user', user);
 
 	return (
-		<div className='bg-gradient-to-r from-black to-slate-800 h-[15vh] text-white'>
+		<div className='bg-gradient-to-r from-black to-slate-800 h-[15vh] text-white '>
 			<nav className='flex justify-between items-center px-5 h-full'>
 				<p className='text-2xl sm:text-4xl font-medium tracking-widest'>
 					Blo<span className='text-orange-600'>g</span>
 				</p>
 				<ul className='hidden lg:flex justify-between space-x-5 sm:space-x-10 font-bold text-[13px] sm:text-lg'>
-					{user?.username && (
+					{user?.findUser?.username && (
 						<>
 							<li>
 								<NavLink to='/blogs'>Blogs</NavLink>
@@ -30,6 +31,11 @@ const Header = ({ user, onLogout }) => {
 							<li>
 								<NavLink to='/settings'>Settings</NavLink>
 							</li>
+							{user.admin ? (
+								<li>
+									<NavLink to='/admin'>Admin</NavLink>
+								</li>
+							) : null}
 							<li>
 								<p className='cursor-pointer' onClick={onLogout}>
 									Logout
@@ -39,14 +45,17 @@ const Header = ({ user, onLogout }) => {
 					)}
 				</ul>
 				<div className='flex items-center space-x-5'>
-					{user?.username && (
+					{user?.findUser?.username && (
 						<>
 							<IoMenu
 								className='block lg:hidden text-3xl cursor-pointer'
 								onClick={handleOpenSection}
 							/>
 							<p className='text-xl sm:text-2xl font-medium capitalize'>
-								Hello <span className='text-orange-500'>{user.username}</span>
+								Hello{' '}
+								<span className='text-orange-500'>
+									{user.findUser?.username}
+								</span>
 							</p>
 						</>
 					)}

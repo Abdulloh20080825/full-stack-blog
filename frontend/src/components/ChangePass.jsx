@@ -48,7 +48,7 @@ const ChangePass = ({ user }) => {
 	};
 
 	return (
-		<div className='my-8'>
+		<div className='my-8 px-2'>
 			<p className='text-xl font-semibold mb-4'>Change Password</p>
 			{error.message && (
 				<p className='font-medium text-xl text-center my-4 text-red-600'>

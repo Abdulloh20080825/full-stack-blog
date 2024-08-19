@@ -17,7 +17,7 @@ class CommentService {
 		}
 	}
 	async getComment(blogId) {
-		console.log(blogId);
+		blogId;
 		try {
 			const comments = await Comment.find();
 
