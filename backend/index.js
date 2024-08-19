@@ -10,11 +10,15 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 4040;
 
-app.use(
-	cors({
-		origin: '*',
-	})
-);
+const corsConfig = {
+	origin: '*',
+	credential: true,
+	methods: ['GET', 'POST', 'PUT', 'DELETE'],
+};
+
+app.options("", cors(corsConfig))
+
+app.use(cors(corsConfig));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
