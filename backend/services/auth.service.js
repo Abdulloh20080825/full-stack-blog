@@ -64,6 +64,15 @@ class AuthService {
 			throw new Error('Something went wrong with the service');
 		}
 	}
+
+	async getUserInfo(id) {
+		try {
+			const isUserExist = await User.findOne({ username: id });
+			return isUserExist;
+		} catch (error) {
+			throw new Error('Something went wrong with the service');
+		}
+	}
 }
 1;
 module.exports = new AuthService();

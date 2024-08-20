@@ -5,7 +5,7 @@ class BlogController {
 		try {
 			const { url, title, description } = req.body;
 			const user = req.user;
-	
+
 			if (!url || !title || !description) {
 				return res.status(400).json({
 					message: 'All fields are required',
@@ -91,6 +91,27 @@ class BlogController {
 			});
 		} catch (error) {
 			console.error(error);
+			return res.status(500).json({
+				message: 'Something went wrong',
+			});
+		}
+	}
+	async getUserBlogs(req, res) {
+		try {
+			const id = req.params.id;
+			const blogs = await blogService.getUserBlogs(id);
+
+			if (!blogs.length) {
+				return res.status(400).json({
+					message: `${id}s not have a blogs`,
+				});
+			}
+
+			return res.status(200).json({
+				message: `${id}s blogs found successfuly`,
+				blogs,
+			});
+		} catch (error) {
 			return res.status(500).json({
 				message: 'Something went wrong',
 			});

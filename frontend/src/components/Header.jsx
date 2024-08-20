@@ -8,7 +8,6 @@ const Header = ({ user, onLogout }) => {
 	const [openSection, setOpenSection] = useState(false);
 	const handleOpenSection = () => setOpenSection(!openSection);
 	const closeModal = () => setOpenSection(false);
-	console.log('user', user);
 
 	return (
 		<div className='bg-gradient-to-r from-black to-slate-800 h-[15vh] text-white '>

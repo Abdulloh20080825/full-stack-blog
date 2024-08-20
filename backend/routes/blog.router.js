@@ -10,4 +10,5 @@ router.put('/update-blog/:id', authenticateToken, BlogController.edit);
 router.delete('/delete-blog/:id', authenticateToken, BlogController.delete);
 router.get('/get-all-blogs', authenticateToken, BlogController.getAll);
 router.get('/get-my-blogs', authenticateToken, BlogController.getMy);
+router.get('/get-user-blogs/:id', authenticateToken, BlogController.getUserBlogs)
 module.exports = router;

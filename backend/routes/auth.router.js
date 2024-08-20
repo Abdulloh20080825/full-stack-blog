@@ -13,5 +13,6 @@ router.post(
 	authController.changePassword
 );
 router.delete('/delete-account', authenticateToken, authController.deleteAccount);
+router.get('/get-user-info/:id', authenticateToken, authController.getUserInfo)
 
 module.exports = router;

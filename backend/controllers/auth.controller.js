@@ -39,7 +39,7 @@ class AuthController {
 				username: isUserExist.username,
 			};
 			const accessToken = generateToken(user);
-	
+
 			return res.status(200).json({
 				message: 'Login successful',
 				accessToken,
@@ -147,6 +147,21 @@ class AuthController {
 		} catch (error) {
 			console.error('Controller error:', error);
 			return res.status(500).json({ message: 'Something went wrong' });
+		}
+	}
+
+	async getUserInfo(req, res) {
+		try {
+			const id = req.params.id;
+			const user = await authService.getUserInfo(id);
+			return res.status(200).json({
+				message: 'User info find successfuly',
+				user,
+			});
+		} catch (error) {
+			return res.status(500).json({
+				message: 'Something went wrong',
+			});
 		}
 	}
 }

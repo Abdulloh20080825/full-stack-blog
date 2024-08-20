@@ -83,6 +83,16 @@ class BlogService {
 			throw new Error('Something went wrong with the service');
 		}
 	}
+
+	async getUserBlogs(id) {
+		try {
+			const blogs = await Blog.find();
+			const filter = blogs.filter((x) => x.user.username == id);
+			return filter
+		} catch (error) {
+			throw new Error('Something went wrong with the service');
+		}
+	}
 }
 
 module.exports = new BlogService();

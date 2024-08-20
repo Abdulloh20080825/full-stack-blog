@@ -46,12 +46,14 @@ const Blogs = ({ user }) => {
 									: item.title}
 							</p>
 							<div className='space-y-2 py-2 px-3'>
-								<p>
-									Author:{' '}
-									<span className='text-orange-600 font-medium'>
-										{item?.user?.username}
-									</span>
-								</p>
+								<Link to={`/profile/${item.user.username}`}>
+									<p>
+										Author:{' '}
+										<span className='text-orange-600 font-medium'>
+											{item?.user?.username}
+										</span>
+									</p>
+								</Link>
 								<p className='capitalize'>
 									{item.description.length >= 30
 										? `${item.description.slice(0, 30)}...`

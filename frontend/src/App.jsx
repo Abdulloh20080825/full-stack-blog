@@ -50,13 +50,22 @@ const App = () => {
 		setUser({});
 		navigate('/login');
 	};
+
+	if (!user) {
+		return (
+			<div className='text-white'>
+				<h1 className='text-4xl'>Loading...</h1>
+			</div>
+		);
+	}
+
 	return (
 		<div className='h-screen w-screen bg-black overflow-x-hidden'>
 			<div className='absolute -z-[2] bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#333_1px,transparent_1px),linear-gradient(to_bottom,#333_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#111_70%,transparent_100%)]'></div>
 			<Header user={user} onLogout={onLogout} />
 			<Routes>
 				<Route path='/' element={<Main user={user} />}></Route>
-				<Route path='/blogs' element={<Blogs user={user.finduser} />} />
+				<Route path='/blogs' element={<Blogs user={user.findUser} />} />
 				<Route path='/my-blogs' element={<MyBlogs />} />
 				<Route path='/add' element={<Add />} />
 				<Route path='/settings' element={<Settings />}>
@@ -76,7 +85,10 @@ const App = () => {
 				</Route>
 				<Route path='/blog/:blog' element={<Blog user={user} />} />
 				<Route path='/edit/:id' element={<EditBlog />} />
-				<Route path='/user/:id' element={<UserProfile />} />
+				<Route
+					path='/profile/:id'
+					element={<UserProfile user={user.findUser} />}
+				/>
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
 			</Routes>
