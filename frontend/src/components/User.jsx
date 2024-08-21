@@ -39,10 +39,10 @@ const User = ({ user }) => {
 					<div>
 						<p className='text-[10px] lg:text-[16px] text-orange-400'>
 							User created At:{' '}
-							{moment(user.findUser?.createdAt).format('MM.Do.YYYY ')}
+							{moment(user.findUser?.createdAt).format('DD MMM YYYY ')}
 						</p>
 						<p className='text-[10px] lg:text-[16px]'>
-							At Time {moment(user.findUser?.createdAt).format('h:mm:ss a')}
+							At Time {moment(user.findUser?.createdAt).format('hh:mm:ss a')}
 						</p>
 					</div>
 				</div>

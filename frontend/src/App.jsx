@@ -18,6 +18,8 @@ import Admin from './pages/Admin';
 import AdminAllBlogs from './components/admin/Admin.AllBlogs';
 import Users from './components/admin/Admin.AllUsers';
 import UserProfile from './pages/UserProfile';
+import Feauture from './pages/Feauture';
+import ForgotPassword from './pages/ForgotPassword';
 
 const App = () => {
 	const [user, setUser] = useState({});
@@ -60,14 +62,16 @@ const App = () => {
 	}
 
 	return (
-		<div className='h-screen w-screen bg-black overflow-x-hidden'>
-			<div className='absolute -z-[2] bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#333_1px,transparent_1px),linear-gradient(to_bottom,#333_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#111_70%,transparent_100%)]'></div>
+		<div className='h-screen w-screen bg-black overflow-x-hidden p-0 m-0'>
+			<div className='absolute inset-0 -z-[2] bg-[linear-gradient(to_right,#333_1px,transparent_1px),linear-gradient(to_bottom,#333_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#111_70%,transparent_100%)]'></div>
+
 			<Header user={user} onLogout={onLogout} />
 			<Routes>
-				<Route path='/' element={<Main user={user} />}></Route>
+				<Route path='/' element={<Main user={user.findUser} />}></Route>
 				<Route path='/blogs' element={<Blogs user={user.findUser} />} />
 				<Route path='/my-blogs' element={<MyBlogs />} />
 				<Route path='/add' element={<Add />} />
+				<Route path='/features' element={<Feauture />} />
 				<Route path='/settings' element={<Settings />}>
 					<Route path='user' element={<User user={user} />} />
 					<Route path='device' element={<Device />} />
@@ -83,7 +87,7 @@ const App = () => {
 						element={<AdminAllBlogs adminBlogs={adminBlogs} />}
 					/>
 				</Route>
-				<Route path='/blog/:blog' element={<Blog user={user} />} />
+				<Route path='/blog/:blog' element={<Blog user={user.findUser} />} />
 				<Route path='/edit/:id' element={<EditBlog />} />
 				<Route
 					path='/profile/:id'
@@ -91,6 +95,7 @@ const App = () => {
 				/>
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
+				<Route path='/reset-pass' element={<ForgotPassword />} />
 			</Routes>
 		</div>
 	);

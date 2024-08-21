@@ -68,6 +68,7 @@ const Login = () => {
 						className='w-full py-2 px-3 outline-none border-b border-black'
 					/>
 				</div>
+				<Link to={'/reset-pass'}>Forgot password ?</Link>
 				<div className='flex flex-col space-y-5'>
 					<button className='bg-orange-600 shadow-xl py-3 text-white font-semibold rounded-md'>
 						Login

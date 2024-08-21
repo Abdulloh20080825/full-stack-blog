@@ -15,7 +15,6 @@ class AdminService {
 	async allBlogs() {
 		try {
 			const blogs = await Blog.find();
-			console.log(blogs);
 			return blogs;
 		} catch (error) {
 			throw new Error('Somrthing went ewrong with service');

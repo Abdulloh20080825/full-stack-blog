@@ -67,16 +67,11 @@ class BlogService {
 		}
 	}
 
-	async getMy(userId) {
+	async getMy(username) {
 		try {
 			const blogs = await Blog.find();
 
-			const userBlog = blogs.filter((blog) => {
-				if (blog.user?.user) {
-					return blog.user.id == userId;
-				}
-				return blog.user.id === userId;
-			});
+			const userBlog = blogs.filter((blog) => blog.user.username == username);
 
 			return userBlog;
 		} catch (error) {
@@ -88,7 +83,8 @@ class BlogService {
 		try {
 			const blogs = await Blog.find();
 			const filter = blogs.filter((x) => x.user.username == id);
-			return filter
+
+			return filter;
 		} catch (error) {
 			throw new Error('Something went wrong with the service');
 		}

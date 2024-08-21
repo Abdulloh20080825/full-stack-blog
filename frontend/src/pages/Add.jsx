@@ -8,6 +8,7 @@ const Add = () => {
 	const [description, setDescription] = useState('');
 	const [error, setError] = useState(null);
 	const navigate = useNavigate();
+
 	const addBlogHandler = async (e) => {
 		e.preventDefault();
 		if (!url) {
@@ -26,7 +27,7 @@ const Add = () => {
 				title,
 				description,
 			});
-		
+
 			navigate('/blogs');
 		} catch (error) {
 			console.log(error);
@@ -35,36 +36,37 @@ const Add = () => {
 		setTitle('');
 		setDescription('');
 	};
+
 	useEffect(() => {
 		if (!localStorage?.getItem('token')) {
 			navigate('/login');
 			return;
 		}
 	}, []);
+
 	return (
-		<div className='flex justify-center items-center mt-10'>
+		<div className='flex justify-center items-center min-h-screen bg-gray-900'>
 			<form
-				className='flex flex-col space-y-5 shadow-lg w-[400px] bg-white text-black rounded-lg px-3 py-6'
+				className='flex flex-col space-y-6 bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-md'
 				onSubmit={addBlogHandler}
 			>
-				<p className='text-3xl text-center font-medium'>
-					Add Blo<span className='text-orange-600'>g</span>
-				</p>
+				<h1 className='text-3xl font-bold text-center text-slate-500'>
+					Add a New Blog
+				</h1>
 				{error && (
 					<p className='text-sm font-medium text-red-600 text-center'>
 						{error}
 					</p>
 				)}
-
 				<div className='w-full'>
 					<input
 						type='text'
-						placeholder='Enter Url'
+						placeholder='Enter Image URL'
 						autoComplete='off'
 						name='url'
 						value={url}
 						onChange={(e) => setUrl(e.target.value)}
-						className='w-full py-2 px-3 outline-none border-b border-black'
+						className='w-full py-2 px-3 bg-gray-700 text-gray-100 rounded-lg outline-none focus:ring-2 focus:ring-slate-500'
 					/>
 				</div>
 				<div className='w-full'>
@@ -75,21 +77,25 @@ const Add = () => {
 						name='title'
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
-						className='w-full py-2 px-3 outline-none border-b border-black'
+						className='w-full py-2 px-3 bg-gray-700 text-gray-100 rounded-lg outline-none focus:ring-2 focus:ring-slate-500'
 					/>
 				</div>
 				<div className='w-full'>
-					<input
-						type='text'
+					<textarea
 						placeholder='Enter Description'
 						autoComplete='off'
 						name='description'
 						value={description}
 						onChange={(e) => setDescription(e.target.value)}
-						className='w-full py-2 px-3 outline-none border-b border-black'
+						className='w-full py-2 px-3 bg-gray-700 text-gray-100 rounded-lg outline-none focus:ring-2 focus:ring-slate-500 resize-none h-32'
 					/>
 				</div>
-				<button className='shadow-lg py-1 rounded-sm'>Add Blog</button>
+				<button
+					type='submit'
+					className='w-full py-2 px-3 bg-blue-900 hover:opacity-85 text-white font-semibold rounded-lg shadow-lg transition duration-300'
+				>
+					Add Blog
+				</button>
 			</form>
 		</div>
 	);

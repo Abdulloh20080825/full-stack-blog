@@ -84,8 +84,9 @@ class BlogController {
 
 	async getMy(req, res) {
 		const user = req.user;
+		console.log(user);
 		try {
-			const blogs = await blogService.getMy(user.id);
+			const blogs = await blogService.getMy(user.username);
 			return res.status(200).json({
 				blogs,
 			});

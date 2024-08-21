@@ -16,6 +16,8 @@ const corsConfig = {
 	methods: ['GET', 'POST', 'PUT', 'DELETE'],
 };
 
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQWJkdWxsb2giLCJlbWFpbCI6ImFiZHVsbG9oQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiYWJkdWxsb2giLCJwYXNzd29yZCI6IjIwMDA4MDgyNSIsIl9pZCI6IjY2YzQ3ZTAzODlhYTJjNjdkZmZmZWFiNSIsImNyZWF0ZWRBdCI6IjIwMjQtMDgtMjBUMTE6Mjk6MDcuODI1WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDgtMjBUMTE6Mjk6MDcuODI1WiIsIl9fdiI6MCwiaWF0IjoxNzI0MTUzMzQ4LCJleHAiOjE3MjY3NDUzNDh9.hWakq5p9He5gWlr625pgTa-9e9abrD2D8PEpc6U7iqE
+
 app.options("", cors(corsConfig))
 
 app.use(cors(corsConfig));

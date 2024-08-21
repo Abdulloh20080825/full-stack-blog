@@ -1,5 +1,6 @@
 const authService = require('../services/auth.service');
 const generateToken = require('../helpers/createJwtToken');
+const smtp = require('../helpers/smtp');
 
 class AuthController {
 	async login(req, res) {
@@ -54,9 +55,9 @@ class AuthController {
 	}
 
 	async register(req, res) {
-		const { name, username, password } = req.body;
+		const { name, email, username, password } = req.body;
 		try {
-			if (!name || !username || !password) {
+			if (!name || !email || !username || !password) {
 				return res.status(400).json({
 					message: 'All fields are required',
 				});
@@ -66,7 +67,12 @@ class AuthController {
 					message: 'It is admin login',
 				});
 			}
-			const user = await authService.register({ name, username, password });
+			const user = await authService.register({
+				name,
+				email,
+				username,
+				password,
+			});
 
 			if (user.error) {
 				return res.status(400).json({
@@ -90,6 +96,27 @@ class AuthController {
 			});
 		}
 	}
+
+	async forgotPassword(req, res) {
+		try {
+			const { email } = req.body;
+			if (!email) {
+				return res.status(400).json({
+					message: 'All fields are required',
+				});
+			}
+
+			await smtp.sendMail(email);
+			return res.status(200).json({
+				message: 'Message sended successfuly',
+			});
+		} catch (error) {
+			return res.status(500).json({
+				message: 'Something went wrong',
+			});
+		}
+	}
+
 	async getUser(req, res) {
 		try {
 			const user = req.user;

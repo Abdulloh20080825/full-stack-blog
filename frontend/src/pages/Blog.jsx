@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axiosInstance from '../service/api';
 import { MdDelete } from 'react-icons/md';
 
@@ -20,6 +20,7 @@ const Blog = ({ user }) => {
 			console.log(error);
 		}
 	};
+
 	useEffect(() => {
 		if (!localStorage?.getItem('token')) {
 			navigate('/login');
@@ -61,52 +62,58 @@ const Blog = ({ user }) => {
 	const onPostComment = async (e) => {
 		e.preventDefault();
 		if (!comment.length) {
-			setError('Write cooment !!!');
+			setError('Write a comment !!!');
 			return;
 		}
 		PostComment();
 	};
 
 	return (
-		<div className='text-white flex flex-col items-center w-[70%] mx-auto shadow-inner shadow-slate-600 py-5 px-10 rounded-lg '>
+		<div className='text-white flex flex-col items-center w-[70%] mt-10 mx-auto shadow-lg py-5 px-10 rounded-lg bg-gradient-to-b from-gray-800 to-gray-900'>
 			<img
 				src={selectedBlog.url}
 				alt=''
-				className='w-full h-[300px] object-cover rounded-2xl mt-2'
+				className='w-full h-[300px] object-cover rounded-2xl mt-2 shadow-md'
 			/>
 			<div className='w-full'>
-				<p className='text-2xl sm:text-5xl mt-10 tracking-widest text-center mb-5 font-extrabold bg-gradient-to-r from-slate-400 via-slate-500 to-slate-600 bg-clip-text text-transparent inline-block '>
+				<p className='text-3xl sm:text-5xl mt-10 tracking-wide text-center mb-5 font-bold text-white'>
 					{selectedBlog.title}
 				</p>
-				<div className='flex flex-col sm:flex-row justify-between'>
-					<p className='text-sm sm:text-xl text-slate-400'>
-						Author:{' '}
-						<span className='text-orange-600'>
-							{selectedBlog?.user?.username}
-						</span>
-					</p>
-					<p className='text-sm sm:text-xl text-slate-600'>
+				<div className='flex flex-col sm:flex-row justify-between mb-5'>
+					<Link to={`/profile/${selectedBlog?.user?.username}`}>
+						<p className='text-sm sm:text-lg text-gray-400'>
+							Author:{' '}
+							<span className='text-orange-500 font-semibold'>
+								{selectedBlog?.user?.username}
+							</span>
+						</p>
+					</Link>
+					<p className='text-sm sm:text-lg text-gray-400'>
 						Created at:{' '}
-						<span className='text-orange-600 font-semibold'>
+						<span className='text-orange-500 font-semibold'>
 							{moment(selectedBlog?.createdAt).format('MMM DD YYYY')}
 						</span>
 					</p>
 				</div>
-				<p className='text-sm sm:text-2xl mt-5 capitalize shadow-md pb-2 px-3 shadow-slate-600 bg-gradient-to-r from-slate-200 via-slate-400 to-slate-600 bg-clip-text text-transparent '>
+				<p className='text-sm sm:text-xl mt-5 capitalize shadow-inner pb-2 px-3 bg-gray-700 rounded-md text-white'>
 					{selectedBlog.description}
 				</p>
 				<form
 					className='mt-10 mb-10 w-full px-10 space-y-5'
 					onSubmit={onPostComment}
 				>
-					<p className='text-red-600 mb-5 font-semibold tracking-widest'>{error && error}</p>
+					{error && (
+						<p className='text-red-500 mb-5 font-semibold tracking-wide'>
+							{error}
+						</p>
+					)}
 					<label
 						htmlFor='comment'
-						className='text-lg sm:text-2xl text-center w-full text-slate-600'
+						className='text-lg sm:text-xl text-center w-full text-gray-400'
 					>
 						Write your comment
 					</label>
-					<div className='flex flex-col sm:flex-row space-x-4 items-center'>
+					<div className='flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4'>
 						<input
 							type='text'
 							id='comment'
@@ -114,51 +121,53 @@ const Blog = ({ user }) => {
 							name='comment'
 							value={comment}
 							onChange={(e) => setComment(e.target.value)}
-							className='w-full py-2 px-3 bg-gradient-to-r from-slate-200 via-slate-400 to-slate-600 bg-clip-text text-transparent text-lg  outline-none bg-transparent border-b-2 border-slate-500'
+							className='w-full py-2 px-3 text-lg outline-none bg-gray-800 text-white border-2 border-gray-700 rounded-md focus:border-orange-500 transition-colors'
 						/>
 						<button
 							type='submit'
-							className='border-2 px-2 sm:px-4 sm:py-2 rounded-md mt-4 sm:mt-0 border-slate-600 shadow-inner shadow-slate-700'
+							className='bg-orange-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-orange-600 transition-colors'
 						>
 							Post
 						</button>
 					</div>
 				</form>
 
-				<p className='text-xl font-medium tracking-wide'>All comments</p>
+				<p className='text-xl font-medium tracking-wide mb-5 text-gray-400'>
+					All comments
+				</p>
 				{blogComment.length ? (
-					blogComment?.map((item, index) => (
+					blogComment.map((item, index) => (
 						<div
 							key={index}
-							className='shadow-inner rounded-sm py-2 px-4 shadow-slate-700 my-5 border-b border-slate-700'
+							className='bg-gray-800 rounded-md p-4 mb-5 shadow-inner border border-gray-700'
 						>
-							<div className='flex justify-between items-center space-x-2'>
+							<div className='flex justify-between items-center'>
 								<div>
-									<p className='tracking-wide font-semibold'>
-										Author:{' '}
-										<span className='text-orange-600 font-bold'>
-											{item?.user?.username}
-										</span>
-									</p>
-									<p className='text-slate-500 text-[10px]'>
+									<Link to={`/profile/${item?.user?.username}`}>
+										<p className='font-semibold text-white'>
+											Author:{' '}
+											<span className='text-orange-500 font-bold'>
+												{item?.user?.username}
+											</span>
+										</p>
+									</Link>
+									<p className='text-gray-500 text-xs'>
 										{moment(item?.createdAt).format('MMM DD YYYY')}
 									</p>
 								</div>
+								{user?.username === item?.user?.username && (
+									<MdDelete
+										className='cursor-pointer text-red-600 text-xl hover:text-red-700 transition-colors'
+										onClick={() => onDeleteComment(item._id)}
+									/>
+								)}
 							</div>
-							<p className='text-[10px] sm:text-sm tracking-widest font-thin mt-2'>{item.comment}</p>
-							{user?.username === item?.user?.username ? (
-								<MdDelete
-									className='cursor-pointer text-red-600 text-xl mt-3'
-									onClick={() => onDeleteComment(item._id)}
-								>
-									Delete
-								</MdDelete>
-							) : null}
+							<p className='text-sm text-gray-400 mt-2'>{item.comment}</p>
 						</div>
 					))
 				) : (
 					<div className='w-full flex justify-center my-10'>
-						<p>No comments yet...</p>
+						<p className='text-gray-500'>No comments yet...</p>
 					</div>
 				)}
 			</div>

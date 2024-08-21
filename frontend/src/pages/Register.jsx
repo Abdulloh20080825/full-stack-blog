@@ -6,6 +6,7 @@ const Register = () => {
 	const [name, setName] = useState('');
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [email, setEmail] = useState('');
 	const [error, setError] = useState(null);
 	const navigate = useNavigate();
 
@@ -24,10 +25,12 @@ const Register = () => {
 		try {
 			const data = await axiosInstance.post('/create-account', {
 				name,
+				email,
 				username,
 				password,
 			});
 			localStorage.setItem('token', data.data.accessToken);
+			console.log(data.data);
 			navigate('/');
 		} catch (error) {
 			if (error?.response?.status === 400) {
@@ -60,6 +63,17 @@ const Register = () => {
 						name='name'
 						value={name}
 						onChange={(e) => setName(e.target.value)}
+						className='w-full py-2 px-3 outline-none border-b border-black'
+					/>
+				</div>
+				<div className='w-full'>
+					<input
+						type='text'
+						placeholder='Enter Email'
+						autoComplete='off'
+						name='email'
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
 						className='w-full py-2 px-3 outline-none border-b border-black'
 					/>
 				</div>

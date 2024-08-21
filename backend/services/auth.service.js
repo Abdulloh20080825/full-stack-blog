@@ -10,14 +10,16 @@ class AuthService {
 		}
 	}
 	zz;
-	async register({ name, username, password }) {
+	async register({ name, email, username, password }) {
 		try {
 			const isUser = await User.findOne({ username });
-			if (isUser) {
-				return { error: 'Username already exists' };
+			const ExistingEmail = await User.findOne({ email });
+			if (isUser || ExistingEmail) {
+				return { error: 'Username or email already exists' };
 			}
 			const user = new User({
 				name,
+				email,
 				username,
 				password,
 			});

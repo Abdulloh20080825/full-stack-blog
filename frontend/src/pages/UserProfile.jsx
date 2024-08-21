@@ -42,11 +42,11 @@ const UserProfile = ({ user }) => {
 			<h1 className='text-3xl capitalize'>
 				<span className='text-orange-600 '>{userInfo.username}s</span> blogs
 			</h1>
-			<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 m-10'>
+			<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 m-10'>
 				{userBlogs.map((item, idx) => (
 					<div
 						key={idx}
-						className='h-auto pb-3 flex flex-col border shadow-lg shadow-slate-700 rounded-xl overflow-hidden'
+						className='h-[400px] pb-3 flex flex-col border shadow-lg shadow-slate-700 rounded-xl overflow-hidden'
 					>
 						<img
 							src={item.url}
